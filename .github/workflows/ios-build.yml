@@ -1,0 +1,46 @@
+name: iOS Build
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build iOS app
+        run: |
+          xcodebuild -project IndustrialConfigurator.xcodeproj \
+            -scheme IndustrialConfigurator \
+            -destination 'generic/platform=iOS' \
+            clean build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            | tee build.log
+
+      - name: Check build success
+        run: |
+          if grep "BUILD SUCCEEDED" build.log; then
+            echo "✅ Build succeeded!"
+            exit 0
+          else
+            echo "❌ Build failed!"
+            exit 1
+          fi
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
