@@ -1,0 +1,55 @@
+name: IndustrialConfigurator
+options:
+  bundleIdPrefix: com.industrial
+  deploymentTarget:
+    iOS: "15.0"
+  developmentLanguage: en
+
+settings:
+  base:
+    PRODUCT_NAME: IndustrialConfigurator
+    PRODUCT_BUNDLE_IDENTIFIER: com.industrial.configurator
+    SWIFT_VERSION: 5.9
+    TARGETED_DEVICE_FAMILY: "1,2"
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+    ENABLE_PREVIEWS: YES
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: ""
+
+targets:
+  IndustrialConfigurator:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - IndustrialConfigurator
+    settings:
+      base:
+        INFOPLIST_FILE: IndustrialConfigurator/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.industrial.configurator
+        DEVELOPMENT_ASSET_PATHS: IndustrialConfigurator/Resources
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: ""
+        DEVELOPMENT_TEAM: ""
+    scheme:
+      testTargets: []
+      gatherCoverageData: false
+    dependencies: []
+
+schemes:
+  IndustrialConfigurator:
+    build:
+      targets:
+        IndustrialConfigurator: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
